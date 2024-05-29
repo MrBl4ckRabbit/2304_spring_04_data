@@ -2,6 +2,9 @@ package by.itclass._02_spring_jpa.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Entity
 @Table(name = "airplane")
@@ -14,7 +17,17 @@ public class Airplane {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NonNull
-    private  String model;
+    private String model;
     @NonNull
-    private  int places;
+    private int places;
+    @OneToMany
+    @JoinColumn(name = "airplane_id")
+    private List<Passenger> passengerList;
+
+    @Autowired
+    public void setPassengerList(List<Passenger> passengerList) {
+        this.passengerList = passengerList;
+    }
+
+
 }
